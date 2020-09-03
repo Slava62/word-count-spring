@@ -1,4 +1,4 @@
-package ru.javafortesters.wordcountspring;
+package ru.javafortesters.wordcountspring.model;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
