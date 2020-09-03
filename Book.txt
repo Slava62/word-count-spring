@@ -1,0 +1,9 @@
+﻿88
+
+String.split uses Regular Expressions, also you don't need to allocate an extra array for your split.
+
+The split-method will give you a list., the problem is that you try to pre-define how many occurrences you have of a tab, but how would you Really know that? Try using the Scanner or StringTokenizer and just learn how splitting strings work.
+
+Let me explain Why \t does not work and why you need \\\\ to escape \\.
+
+Okay, so when you use Split, it actually takes a regex ( Regular Expression ) and in regular expression you want to define what Character to split by, and if you write \t that actually doesn't mean \t and what you WANT to split by is \t, right? So, by just writing \t you tell your regex-processor that "Hey split by the character that is escaped t" NOT "Hey split by all characters looking like \t". Notice the difference? Using \ means to escape something. And \ in regex means something Totally different than what you think.
