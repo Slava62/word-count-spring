@@ -3,16 +3,16 @@ package ru.javafortesters.wordcountspring.service;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class WordExtractorTest {
+
+class WordCountServiceTest {
 
     private BufferedReader reader;
     private FileReader fileReader;
@@ -20,7 +20,9 @@ class WordExtractorTest {
     private String stringData;
 
 
-    WordExtractor wordExtractor;
+
+
+
 
     @BeforeEach
     public void setUp() throws Exception {
@@ -43,18 +45,14 @@ class WordExtractorTest {
        // System.out.println(stringBuilder.toString());
     }
 
-
-
     @Test
-    void extractWordsTest() {
-        wordExtractor = new WordExtractor();
-       System.out.println(wordExtractor.extractWords(stringData));
-      //  for (String s:wordExtractor.extractWords(stringData)
-      //       ) {
-      //      System.out.println(s);
-      // }
-
+    public void wordCountServiceTest(){
+        WordCountService wordCountService=new WordCountService();
+        Map<String,Long> words= wordCountService.count(stringData);
+        // \W+t\s|\W+t\W "t" - 9 times in book.txt
+        assertEquals(9L, words.get("t"));
     }
+
 
     @AfterEach
     public void tearDown() throws Exception {

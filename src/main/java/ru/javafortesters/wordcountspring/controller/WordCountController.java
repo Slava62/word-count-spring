@@ -1,17 +1,24 @@
 package ru.javafortesters.wordcountspring.controller;
 
-import org.springframework.web.bind.annotation.RestController;
+import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.*;
 import ru.javafortesters.wordcountspring.service.WordCountService;
 
 @RestController
+@RequestMapping("/words")
+@AllArgsConstructor
 public class WordCountController {
-    private WordCountService wordCountService;
 
-    public WordCountController(WordCountService wordCountService) {
-        this.wordCountService = wordCountService;
+    private final WordCountService wordCountService;
+
+    @PostMapping("/wordCount")
+    public WordCountResponse countWord(@RequestBody WordCountRequest wordCountRequest){
+       WordCountResponse wordCountResponse = new WordCountResponse();
+       wordCountResponse.setIdRequest(wordCountRequest.getIdRequest());
+       wordCountResponse.setMapCounts
+                (wordCountService.count(wordCountRequest.getText()));
+
+       return wordCountResponse;
     }
 
-    public void WordCountRequest(String request){
-
-    }
 }
