@@ -30,7 +30,7 @@ class WordCountSpringApplicationTests {
     @Autowired
     private MockMvc mvc;
 
-    @Value("classpath:book.txt")
+    @Value("classpath:Book.txt")
     Resource book;
 
     @Autowired

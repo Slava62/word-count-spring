@@ -25,7 +25,7 @@ class WordCountServiceTest {
 
     @BeforeEach
     public void setUp() throws Exception {
-        inputFileName = "./src/test/resources/book.txt";
+        inputFileName = "./src/test/resources/Book.txt";
         String line = null;
         String ls = System.getProperty("line.separator");
         StringBuilder stringBuilder = new StringBuilder();
