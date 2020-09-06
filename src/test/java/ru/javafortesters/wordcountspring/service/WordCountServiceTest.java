@@ -4,6 +4,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -22,11 +23,9 @@ class WordCountServiceTest {
 
 
 
-
-
     @BeforeEach
     public void setUp() throws Exception {
-        inputFileName = ".\\Book.txt";
+        inputFileName = "./src/test/resources/book.txt";
         String line = null;
         String ls = System.getProperty("line.separator");
         StringBuilder stringBuilder = new StringBuilder();

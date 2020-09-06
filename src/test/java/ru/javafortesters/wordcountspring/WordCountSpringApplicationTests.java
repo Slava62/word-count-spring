@@ -6,8 +6,10 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.core.io.Resource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -28,13 +30,15 @@ class WordCountSpringApplicationTests {
     @Autowired
     private MockMvc mvc;
 
+    @Value("classpath:book.txt")
+    Resource book;
 
     @Autowired
     WordCountService wordCountService;
 
     @BeforeEach
     public void setUp() throws Exception {
-        String inputFileName = ".\\Book.txt";
+        String inputFileName = book.getFile().getPath();//".\\Book.txt";
         String line;
         String ls = System.getProperty("line.separator");
         StringBuilder stringBuilder = new StringBuilder();
