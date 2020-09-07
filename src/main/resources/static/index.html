@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<h1>
+    WordCountSpringApplication
+</h1>
+<form name="form1"> Input text:<br />
+    <textarea id="source" cols="80" rows="10"></textarea> <br />
+    <input id="sendButton" type="button" value="Send text" onclick="sendText()"/> </form>
+<textarea id="responce-text" cols="80" rows="10"></textarea> <br />
+<script>
+    function sendText() {
+        var textSource = document.getElementById("source").value;
+
+
+        var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
+        xmlhttp.open("POST", "/words/wordCount");
+        xmlhttp.setRequestHeader("Content-Type", "application/json");
+        xmlhttp.send(JSON.stringify({idRequest: 1, text: textSource}));
+
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                var responce = JSON.parse(xmlhttp.responseText);
+                var html = '';
+                html = html + xmlhttp.responseText;
+                document.getElementById("responce-text").innerHTML = html;
+            }
+        };
+    }
+
+</script>
+</body>
+</html>

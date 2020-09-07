@@ -11,6 +11,9 @@ public class WordCountController {
 
     private final WordCountService wordCountService;
 
+
+    //@GetMapping(value ="/")
+
     @PostMapping("/wordCount")
     public WordCountResponse countWord(@RequestBody WordCountRequest wordCountRequest){
        WordCountResponse wordCountResponse = new WordCountResponse();
