@@ -7,6 +7,7 @@ import ru.javafortesters.wordcountspring.service.WordCountService;
 @RestController
 @RequestMapping("/words")
 @AllArgsConstructor
+
 public class WordCountController {
 
     private final WordCountService wordCountService;

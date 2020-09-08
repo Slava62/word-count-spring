@@ -15,9 +15,13 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import ru.javafortesters.wordcountspring.controller.WordCountRequest;
+import ru.javafortesters.wordcountspring.exception.WordCountSpringApplicationException;
 import ru.javafortesters.wordcountspring.service.WordCountService;
 
 import java.io.*;
+import java.lang.reflect.Method;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -37,8 +41,10 @@ class WordCountSpringApplicationTests {
     WordCountService wordCountService;
 
     @BeforeEach
-    public void setUp() throws Exception {
-        String inputFileName = book.getFile().getPath();//".\\Book.txt";
+    public void setUp() throws IOException {
+        String inputFileName =book.getFile().getPath(); //".\\Book.txt";
+        Logger.getLogger(
+                this.getClass().getName()).log(Level.INFO, "Read test data from file " + inputFileName);
         String line;
         String ls = System.getProperty("line.separator");
         StringBuilder stringBuilder = new StringBuilder();
@@ -51,9 +57,12 @@ class WordCountSpringApplicationTests {
             }
             stringBuilder.deleteCharAt(stringBuilder.length()-1);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new WordCountSpringApplicationException(e.getMessage(),this.getClass().getName());
+           // e.printStackTrace();
         }
         stringData = stringBuilder.toString();
+        Logger.getLogger(
+                this.getClass().getName()).log(Level.INFO, "Test data file's read successful");
     }
 
     @Test
@@ -68,6 +77,9 @@ class WordCountSpringApplicationTests {
                 .contentType("application/json")
         );
         result.andExpect(MockMvcResultMatchers.status().isOk());
+        Logger.getLogger(
+                this.getClass().getName()).log(Level.INFO, "Count word response status " +
+        result.andReturn().getResponse().getStatus());
         writeResult(result.andReturn().getResponse().getContentAsString());
    }
 
@@ -81,8 +93,12 @@ class WordCountSpringApplicationTests {
     }
 
     @AfterEach
-    public void tearDown() throws Exception {
-        reader.close();
-        fileReader.close();
+    public void tearDown() throws WordCountSpringApplicationException {
+        try {
+            reader.close();
+            fileReader.close();
+        } catch (IOException e){
+            throw new WordCountSpringApplicationException(e.getMessage(),this.getClass().getName());
+        }
     }
 }
